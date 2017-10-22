@@ -73,3 +73,9 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+.gitignore
+.idea/
+rest-client/rest-client.iml
+rest-client/src/java/ing3/fisaa/webbank/pds/utils/
+rest-client/target/
+web-bank.iml
