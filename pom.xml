@@ -17,6 +17,7 @@
 
     <modules>
         <module>rest-client</module>
+        <module>aop</module>
     </modules>
 
 </project>

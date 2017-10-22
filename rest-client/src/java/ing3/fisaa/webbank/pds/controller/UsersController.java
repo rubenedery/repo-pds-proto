@@ -21,7 +21,7 @@ import java.util.List;
 public class UsersController {
 	
 	@Autowired
-	private IUserService userDtoService;
+	private IUserService userService;
 	
 	/**
 	 * Method for get all users
@@ -29,7 +29,7 @@ public class UsersController {
 	 */
 	@RequestMapping(value = "/getall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public List<User> GetAllUser() {
-		return userDtoService.getAllUser();
+		return userService.getAllUser();
 	}
 	
 	/**
@@ -37,9 +37,9 @@ public class UsersController {
 	 * @param firstname
 	 * @return list of UserDto formated to JSON
 	 */
-	@RequestMapping(value = "/getbyfirstname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(value = "/getwithfirstname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public List<User> GetUserByFirstName(@HeaderParam("firstname") String firstname) {
-		return userDtoService.getUserByFirstName(firstname);
+		return userService.getUserByFirstName(firstname);
 	}
 	
 	/**
@@ -47,9 +47,9 @@ public class UsersController {
 	 * @param lastname
 	 * @return list of UserDto formated to JSON
 	 */
-	@RequestMapping(value = "/getbylastname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(value = "/getwithlastname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public List<User> GetUserByLastName(@HeaderParam("lastname") String lastname) {
-		return userDtoService.getUserByLastName(lastname);
+		return userService.getUserByLastName(lastname);
 	}
 	
 	/**
@@ -58,9 +58,9 @@ public class UsersController {
 	 * @param lastname
 	 * @return list of UserDto formated to JSON
 	 */
-	@RequestMapping(value = "/getbyuser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(value = "/getwithuser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public User GetUserByUser(@HeaderParam("firstname") String firstname, @HeaderParam("lastname") String lastname) {
-		return userDtoService.getUserByUser(new User(firstname,lastname));
+		return userService.getUserByUser(new User(firstname,lastname));
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class UsersController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
 	public String addUser(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName) {
-		return userDtoService.addUser(new User(firstName, lastName));
+		return userService.addUser(new User(firstName, lastName));
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class UsersController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.DELETE)
 	public String deleteUser(@HeaderParam("firstname") String firstname, @HeaderParam("lastname") String lastname) {
-		return userDtoService.deleteUser(new User(firstname, lastname));
+		return userService.deleteUser(new User(firstname, lastname));
 	}
 	
 	/**
@@ -96,7 +96,7 @@ public class UsersController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String deleteUser(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
 							 @RequestParam("newfirstname") String newFirstName, @RequestParam("newlastname") String newLastName) {
-		return userDtoService.updateUser(new User(firstName, lastName), new User(newFirstName,newLastName));
+		return userService.updateUser(new User(firstName, lastName), new User(newFirstName,newLastName));
 	}
 	
 }
