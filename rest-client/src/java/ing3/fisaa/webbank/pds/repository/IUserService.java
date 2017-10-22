@@ -31,33 +31,25 @@ public interface IUserService {
 	
 	/**
 	 * Search with firstname ans lastname and return result
-	 * @param userDto
+	 * @param user
 	 * @return
 	 */
-	public User getUserByUser(User userDto);
+	public User getUserByUser(User user);
 	
 	/**
 	 * Add in list if not existing
-	 * @param userDto
+	 * @param user
 	 * @return result
 	 */
-	public String addUser(User userDto);
-	
-	/**
-	 * Change in list in exist and if nex not existing
-	 * @param userDto
-	 * @param newUserDto
-	 * @return result
-	 */
-	public String updateUser(User userDto,User newUserDto);
-	
+	public String addUser(User user);
+		
 	/**
 	 * Delete from list if exist
-	 * @param userDto
+	 * @param user
 	 * @return reuslt
 	 */
-	public String deleteUser(User userDto);
+	public String deleteUser(User user);
 	
-	public boolean contains(User userDto);
+	public boolean contains(User user);
 }
 

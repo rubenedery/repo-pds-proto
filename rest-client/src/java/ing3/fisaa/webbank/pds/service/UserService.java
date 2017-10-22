@@ -13,13 +13,16 @@ import java.util.List;
 @Service
 public class UserService implements IUserService  {
 	
-	private List<User> myMockListUser = new ArrayList<User>();
+	private List<User> mockList = new ArrayList<User>();
 	
-	public List<User> initializeList(List<User> myMockListUserer){
+	public List<User> initializeList(List<User> mockListeInitializer){
+		if(mockList!=null){mockList.removeAll(mockList);}
 		for(int i =0; i<10 ; i++){
-			myMockListUserer.add(new User("nom"+i,"prenom"+i));
+			mockListeInitializer.add(
+					new User("nom"+i,"prenom"+i)
+			);
 		}
-		return myMockListUserer;
+		return mockListeInitializer;
 	}
 	
 	/**
@@ -28,9 +31,8 @@ public class UserService implements IUserService  {
 	 */
 	@Override
 	public List<User> getAllUser() {
-		if(myMockListUser!=null){myMockListUser.removeAll(myMockListUser);}
-		initializeList(myMockListUser);
-		return myMockListUser;
+		initializeList(mockList);
+		return mockList;
 	}
 	
 	/**
@@ -40,11 +42,11 @@ public class UserService implements IUserService  {
 	 */
 	@Override
 	public List<User> getUserByFirstName(String firstName) {
-		initializeList(myMockListUser);
+		initializeList(mockList);
 		List<User> returnList = new ArrayList<User>();
-		for(int i=0; i<myMockListUser.size(); i++) {
-			if(myMockListUser.get(i).getFirstName().equals(firstName)) {
-				returnList.add(myMockListUser.get(i));
+		for(int i=0; i<mockList.size(); i++) {
+			if(mockList.get(i).getFirstName().equals(firstName)) {
+				returnList.add(mockList.get(i));
 			}
 		}
 		return returnList;
@@ -57,10 +59,11 @@ public class UserService implements IUserService  {
 	 */
 	@Override
 	public List<User> getUserByLastName(String lastName) {
+		initializeList(mockList);
 		List<User> returnList = new ArrayList<User>();
-		for(int i=0; i<myMockListUser.size(); i++) {
-			if(myMockListUser.get(i).getLastName().equals(lastName)) {
-				returnList.add(myMockListUser.get(i));
+		for(int i=0; i<mockList.size(); i++) {
+			if(mockList.get(i).getLastName().equals(lastName)) {
+				returnList.add(mockList.get(i));
 			}
 		}
 		return returnList;
@@ -68,15 +71,16 @@ public class UserService implements IUserService  {
 	
 	/**
 	 * Search with firstname ans lastname and return result
-	 * @param userDto
+	 * @param user
 	 * @return
 	 */
 	@Override
-	public User getUserByUser(User userDto) {
-		for(int i=0; i<myMockListUser.size(); i++) {
-			if(myMockListUser.get(i).getFirstName().equals(userDto.getFirstName()) &&
-					   myMockListUser.get(i).getLastName().equals(userDto.getLastName())) {
-				return myMockListUser.get(i);
+	public User getUserByUser(User user) {
+		initializeList(mockList);
+		for(int i=0; i<mockList.size(); i++) {
+			if(mockList.get(i).getFirstName().equals(user.getFirstName()) &&
+					   mockList.get(i).getLastName().equals(user.getLastName())) {
+				return mockList.get(i);
 			}
 		}
 		return new User(null,null);
@@ -84,75 +88,52 @@ public class UserService implements IUserService  {
 	
 	/**
 	 * Add in list if not existing
-	 * @param userDto
+	 * @param user
 	 * @return result
 	 */
 	@Override
-	public String addUser(User userDto) {
-		if(contains(userDto)) {
-			return "ERROR : " + userDto.toString()+ " already exist";
+	public String addUser(User user) {
+		initializeList(mockList);
+		if(contains(user)) {
+			return "ERROR : " + user.toString()+ " already exist";
 		} else {
-			myMockListUser.add(userDto);
-			return "PUT : " + userDto.toString();
+			mockList.add(user);
+			return "PUT : " + user.toString();
 		}
 	}
 	
-	/**
-	 * Change in list in exist and if nex not existing
-	 * @param userDto
-	 * @param newUserDto
-	 * @return result
-	 */
-	@Override
-	public String updateUser(User userDto,User newUserDto) {
-		if(!contains(userDto)) {
-			return "ERROR : " + userDto.toString()+ " not exist";
-		} else {
-			if(contains(newUserDto)) {
-				return "ERROR : " + newUserDto.toString()+  " already exist";
-			} else {
-				for(int i=0; i<myMockListUser.size(); i++) {
-					if(myMockListUser.get(i).getFirstName().equals(userDto.getFirstName()) &&
-							   myMockListUser.get(i).getLastName().equals(userDto.getLastName())) {
-						myMockListUser.get(i).setFirstName(newUserDto.getFirstName());
-						myMockListUser.get(i).setLastName(newUserDto.getLastName());
-					}
-				}
-				return "POST : " + userDto.toString() + " TO " + newUserDto.toString();
-			}
-		}
-	}
 	
 	/**
 	 * Delete from list if exist
-	 * @param userDto
+	 * @param user
 	 * @return reuslt
 	 */
 	@Override
-	public String deleteUser(User userDto) {
-		if(!contains(userDto)) {
-			return "ERROR : " + userDto.toString() + " not exist";
+	public String deleteUser(User user) {
+		if(!contains(user)) {
+			return "ERROR : " + user.toString() + " not exist";
 		} else {
-			for(int i=0; i<myMockListUser.size(); i++) {
-				if(myMockListUser.get(i).getFirstName().equals(userDto.getFirstName()) &&
-						   myMockListUser.get(i).getLastName().equals(userDto.getLastName())) {
-					myMockListUser.remove(i);
+			for(int i=0; i<mockList.size(); i++) {
+				if(mockList.get(i).getFirstName().equals(user.getFirstName()) &&
+						   mockList.get(i).getLastName().equals(user.getLastName())) {
+					mockList.remove(i);
 				}
 			}
-			return "DELETE : " + userDto.toString();
+			return "DELETE : " + user.toString();
 		}
 	}
 	
 	/**
 	 * Looking if exist in list
-	 * @param userDto
+	 * @param user
 	 * @return true/false
 	 */
 	@Override
-	public boolean contains(User userDto) {
-		for(int i=0; i<myMockListUser.size(); i++) {
-			if(myMockListUser.get(i).getFirstName().equals(userDto.getFirstName()) &&
-					   myMockListUser.get(i).getLastName().equals(userDto.getLastName())) {
+	public boolean contains(User user) {
+		initializeList(mockList);
+		for(int i=0; i<mockList.size(); i++) {
+			if(mockList.get(i).getFirstName().equals(user.getFirstName()) &&
+					   mockList.get(i).getLastName().equals(user.getLastName())) {
 				return true;
 			}
 		}

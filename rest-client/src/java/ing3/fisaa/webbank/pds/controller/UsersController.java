@@ -43,9 +43,9 @@ public class UsersController {
 	}
 	
 	/**
-	 * Method for get users with lastname
+	 *
 	 * @param lastname
-	 * @return list of UserDto formated to JSON
+	 * @return
 	 */
 	@RequestMapping(value = "/getwithlastname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public List<User> GetUserByLastName(@HeaderParam("lastname") String lastname) {
@@ -53,10 +53,10 @@ public class UsersController {
 	}
 	
 	/**
-	 * Method for get users with firstname and lastname
+	 *
 	 * @param firstname
 	 * @param lastname
-	 * @return list of UserDto formated to JSON
+	 * @return
 	 */
 	@RequestMapping(value = "/getwithuser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public User GetUserByUser(@HeaderParam("firstname") String firstname, @HeaderParam("lastname") String lastname) {
@@ -64,10 +64,10 @@ public class UsersController {
 	}
 	
 	/**
-	 * Method for PUT (add) user in database (list)
+	 *
 	 * @param firstName
 	 * @param lastName
-	 * @return success or error
+	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
 	public String addUser(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName) {
@@ -75,10 +75,10 @@ public class UsersController {
 	}
 	
 	/**
-	 * Method for DELETE user from database (list)
+	 *
 	 * @param firstname
 	 * @param lastname
-	 * @return success or error
+	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.DELETE)
 	public String deleteUser(@HeaderParam("firstname") String firstname, @HeaderParam("lastname") String lastname) {
@@ -86,12 +86,12 @@ public class UsersController {
 	}
 	
 	/**
-	 * Method for POST (modify) user from database (list)
+	 *
 	 * @param firstName
 	 * @param lastName
 	 * @param newFirstName
 	 * @param newLastName
-	 * @return success or error
+	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String deleteUser(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
